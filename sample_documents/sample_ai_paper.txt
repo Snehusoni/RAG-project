@@ -1,0 +1,31 @@
+# Attention Is All You Need — Research Summary
+
+## Authors & Origin
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin. Google Brain, Google Research, and University of Toronto. 2017.
+
+## Key Innovation
+The Transformer is the first sequence transduction model based entirely on self-attention, replacing recurrent layers (RNNs, LSTMs, GRUs) and convolutional layers traditionally used in sequence models.
+
+## Encoder and Decoder Architecture
+- **Encoder**: 6 identical layers. Each layer contains two sub-layers:
+  1. Multi-head self-attention mechanism.
+  2. Position-wise fully connected feed-forward network.
+  - Residual connections around each sub-layer followed by Layer Normalization (`LayerNorm(x + Sublayer(x))`).
+  - Output dimension $d_{model} = 512$.
+- **Decoder**: 6 identical layers. Each layer contains three sub-layers:
+  1. Masked multi-head self-attention (prevents attending to future positions).
+  2. Multi-head cross-attention over encoder output.
+  3. Position-wise feed-forward network.
+
+## Scaled Dot-Product Attention
+$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+Where $Q$ represents queries, $K$ represents keys, and $V$ represents values. The scaling factor $\frac{1}{\sqrt{d_k}}$ prevents the dot products from growing excessively large for large dimensions $d_k$, which would push softmax into regions with extremely small gradients.
+
+## Multi-Head Attention Details
+Instead of single attention with dimension $d_{model} = 512$, the model projects $Q, K, V$ into $h = 8$ parallel heads with dimension $d_k = d_v = 64$.
+This allows the model to attend to information from different representation subspaces simultaneously.
+
+## Training & Performance Benchmarks
+- **English-to-German Translation (WMT 2014)**: Big Transformer achieves 28.4 BLEU, beating prior ensemble models by >2.0 BLEU.
+- **English-to-French Translation (WMT 2014)**: BLEU score of 41.8, setting a new single-model state-of-the-art.
+- **Hardware & Training Time**: Trained on 8 NVIDIA P100 GPUs for 3.5 days for the big model (base model trained in 12 hours).

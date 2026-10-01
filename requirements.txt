@@ -1,0 +1,25 @@
+# Core LangChain Framework
+langchain>=0.2.16
+langchain-core>=0.2.40
+langchain-community>=0.2.16
+langchain-text-splitters>=0.2.4
+
+# Model Providers
+langchain-google-genai>=1.0.10
+langchain-groq>=0.1.9
+langchain-openai>=0.1.23
+
+# Vector Database & Embeddings
+chromadb>=0.5.5
+langchain-chroma>=0.1.4
+sentence-transformers>=3.0.1
+
+# Document Processing & PDF Parsing
+pypdf>=4.3.1
+pdfplumber>=0.11.4
+
+# User Interface & Utilities
+streamlit>=1.38.0
+python-dotenv>=1.0.1
+pydantic>=2.8.2
+tiktoken>=0.7.0
